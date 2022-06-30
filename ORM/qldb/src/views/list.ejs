@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+
+
+<head>
+
+    <title>Phone books</title>
+
+</head>
+
+
+
+<body>
+
+<h3>Phone books</h3>
+
+<div class="grid">
+
+    <% for (let phoneBook of phoneBooks) { %>
+
+        <article class="card product-item">
+
+            <header class="card__header">
+
+                <p class="product__title">
+
+                    <%= phoneBook.name %>
+
+                </p>
+
+            </header>
+
+            <div class="card__image">
+
+                <p class="product__price">
+
+                    <%= phoneBook.address %>
+
+                </p>
+
+            </div>
+
+            <div class="card__content">
+
+                <p class="product__price">
+
+                    <%= phoneBook.email %>
+
+                    </h2>
+
+                <p class="product__description">
+
+                    <%= phoneBook.phone %>
+
+                </p>
+
+            </div>
+
+        </article>
+
+        </br>
+
+    <% } %>
+
+</div>
+
+</body>
+
+</html>

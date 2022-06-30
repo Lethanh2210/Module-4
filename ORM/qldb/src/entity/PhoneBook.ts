@@ -8,9 +8,12 @@ import {
 
 } from "typeorm";
 
+
+
+
 @Entity()
 
-export class Product {
+export class PhoneBook {
 
     @PrimaryGeneratedColumn()
 
@@ -20,25 +23,24 @@ export class Product {
 
     @Column()
 
-    public price: number;
-
-
-
-    @Column({ type: "varchar" })
-
     public name: string;
 
 
 
     @Column({ type: "varchar" })
 
-    public author: string;
+    public address: string;
 
 
 
     @Column({ type: "varchar" })
 
-    public avatar: string;
+    public email: string;
 
+
+
+    @Column({ type: "varchar" })
+
+    public phone: string;
 
 }
