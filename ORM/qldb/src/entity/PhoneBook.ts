@@ -43,4 +43,21 @@ export class PhoneBook {
 
     public phone: string;
 
+
+    @Column({ type: "varchar" })
+
+    public note: string;
+
+
+
+    @Column({ type: 'timestamp', default: () => "CURRENT_TIMESTAMP" })
+
+    public created_at: string;
+
+
+
+    @Column({ type: 'timestamp', default: () => "CURRENT_TIMESTAMP" })
+
+    public updated_at: string;
+
 }

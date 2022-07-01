@@ -33,6 +33,18 @@ __decorate([
     (0, typeorm_1.Column)({ type: "varchar" }),
     __metadata("design:type", String)
 ], PhoneBook.prototype, "phone", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: "varchar" }),
+    __metadata("design:type", String)
+], PhoneBook.prototype, "note", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: 'timestamp', default: () => "CURRENT_TIMESTAMP" }),
+    __metadata("design:type", String)
+], PhoneBook.prototype, "created_at", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: 'timestamp', default: () => "CURRENT_TIMESTAMP" }),
+    __metadata("design:type", String)
+], PhoneBook.prototype, "updated_at", void 0);
 PhoneBook = __decorate([
     (0, typeorm_1.Entity)()
 ], PhoneBook);
