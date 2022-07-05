@@ -28,8 +28,17 @@ productRoutes.post('/create', upload.none(), async (req, res) => {
 });
 productRoutes.get('/list', async (req, res) => {
     try {
-        const products = await product_model_1.Product.find();
-        res.render("listProduct", { products: products });
+        let limit = 3;
+        let offset;
+        if (!req.query.offset) {
+            offset = 0;
+        }
+        else {
+            offset = parseInt(req.query.offset);
+        }
+        console.log(offset);
+        const products = await product_model_1.Product.find().limit(limit).skip(limit * offset);
+        res.render("listProduct", { products: products, offset: offset });
     }
     catch (_a) {
         res.render("error");

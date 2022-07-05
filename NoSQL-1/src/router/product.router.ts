@@ -10,6 +10,9 @@ const upload = multer();
 
 
 
+
+
+
 productRoutes.get('/create', (req, res) => {
 
     res.render("createProduct");
@@ -48,11 +51,27 @@ productRoutes.post('/create', upload.none(), async (req, res) => {
 
 productRoutes.get('/list', async (req, res) => {
 
+
     try {
 
-        const products = await Product.find();
+        let limit: number = 3;
 
-        res.render("listProduct", { products: products });
+        let offset: number;
+
+        if(!req.query.offset) {
+
+            offset = 0;
+
+        } else {
+
+            offset = parseInt(req.query.offset as string) ;
+
+        }
+        console.log(offset)
+
+        const products = await Product.find().limit(limit).skip(limit*offset);
+
+        res.render("listProduct", { products: products, offset: offset });
 
     } catch {
 
