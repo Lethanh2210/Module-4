@@ -1,0 +1,1 @@
+{"version":3,"file":"DB.model.js","sourceRoot":"","sources":["../../../src/schemas/DB.model.ts"],"names":[],"mappings":";;;AAAA,uCAAuC;AAkBvC,MAAM,QAAQ,GAAG,IAAI,iBAAM,CAAM;IAE7B,IAAI,EAAE,MAAM;IAEZ,OAAO,EAAE,MAAM;IAEf,KAAK,EAAE,MAAM;IAEb,KAAK,EAAE,MAAM;CAEhB,CAAC,CAAA;AAEF,MAAM,EAAE,GAAG,IAAA,gBAAK,EAAM,IAAI,EAAE,QAAQ,CAAC,CAAC;AAE7B,gBAAE"}
