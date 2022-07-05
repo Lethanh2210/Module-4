@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+
+
+<head>
+
+    <title>Products</title>
+
+    <style>
+
+        .pagination a {
+
+            color: black;
+
+            float: left;
+
+            padding: 12px 18px;
+
+            text-decoration: none;
+
+        }
+
+        /* thiết lập style cho class active */
+
+        .pagination a.active {
+
+            background-color: dodgerblue;
+
+            color: white;
+
+            /*Thiết kế hình tròn với CSS*/
+
+            border-radius: 50%;
+
+        }
+
+        /* thêm màu nền khi người dùng hover vào class không active */
+
+        .pagination a:hover:not(.active) {
+
+            background-color: #ddd;
+
+            /*Thiết kế hình tròn với CSS*/
+
+            border-radius: 50%;
+
+        }
+
+    </style>
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
+    <script type="text/javascript">
+
+        const update = (id) => {
+
+            window.open('http://localhost:3000/users/update/' + id);
+
+        };
+
+        const deleteUser = async (id) => {
+
+            await $.ajax({
+
+                url: `http://localhost:3000/users/delete/${id}`,
+
+                type: "DELETE",
+
+                dataType: "json",
+
+                contentType: "application/json",
+
+                success: function (result) {
+
+                },
+
+                error: function (xhr, ajaxOptions, thrownError) {
+
+                    console.log(xhr.status);
+
+                    console.log(thrownError);
+
+                }
+
+            });
+
+            location.reload();
+
+        };
+
+    </script>
+
+</head>
+
+
+
+<body>
+
+
+
+<h2>List Products</h2>
+
+<a href="/users/create">add</a>
+
+<% for(const product of Users) { %>
+    <h3>
+        Name: <%= product.name %>
+    </h3>
+    <p>
+        MaSo: <%= product.MaSo %>
+    </p>
+    <p>
+        email: <%= product.email %>
+    </p>
+    <p>
+        Phone: <%= product.phone %>
+    </p>
+    <button onclick="update('<%= product.id %>')">Update</button>
+
+    <button onclick="deleteUser('<%= product.id %>')">Delete</button>
+
+    </br>
+
+<% } %>
+
+<div class="pagination">
+    <a href="http://localhost:3000/users/list?offset=<%- offset - 1 -%>"><<</a>
+    <a href="#"><%- offset+1 -%></a>
+    <a href="http://localhost:3000/users/list?offset=<%- offset +1 -%>">>></a>
+</div>
+
+</body>
+
+
+
+</html>
