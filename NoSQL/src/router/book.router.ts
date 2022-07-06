@@ -39,7 +39,7 @@ bookRoutes.post('/create', upload.none(), async (req, res) => {
 
         });
 
-        bookNew.keywords.push({keyword: req.body.keyword});
+        bookNew.author.push({author: req.body.author});
 
         const p1 = authorNew.save();
 
@@ -100,19 +100,46 @@ bookRoutes.post('/update', upload.none(), async (req, res) => {
 });
 
 bookRoutes.get('/list', async (req, res) => {
-
     try {
+
         let query = {};
+
         if (req.query.keyword && req.query.keyword !== "") {
+
             let keywordFind = req.query.keyword || "";
+
             query = {
+
                 "keywords.keyword": {
+
                     $regex: keywordFind
+
                 }
+
             }
+
         }
+
+        if (req.query.author && req.query.author !== "") {
+
+            let authordFind = req.query.author || "";
+
+            let author = await Author.findOne({name: { $regex: authordFind}})
+
+            query = {
+
+                ...query,
+
+                author: author
+
+            }
+
+        }
+
         const books = await Book.find(query).populate({
-            path: "author", select: `name`
+
+            path: "author", select: "name"
+
         });
 
         res.render("listBook", { books: books });

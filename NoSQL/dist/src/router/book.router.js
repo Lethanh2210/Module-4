@@ -22,7 +22,7 @@ bookRoutes.post('/create', upload.none(), async (req, res) => {
             description: req.body.description,
             author: authorNew,
         });
-        bookNew.keywords.push({ keyword: req.body.keyword });
+        bookNew.author.push({ author: req.body.author });
         const p1 = authorNew.save();
         const p2 = bookNew.save();
         let [author, book] = await Promise.all([p1, p2]);
@@ -66,8 +66,13 @@ bookRoutes.get('/list', async (req, res) => {
                 }
             };
         }
+        if (req.query.author && req.query.author !== "") {
+            let authordFind = req.query.author || "";
+            let author = await author_model_1.Author.findOne({ name: { $regex: authordFind } });
+            query = Object.assign(Object.assign({}, query), { author: author });
+        }
         const books = await book_model_1.Book.find(query).populate({
-            path: "author", select: `name`
+            path: "author", select: "name"
         });
         res.render("listBook", { books: books });
     }
