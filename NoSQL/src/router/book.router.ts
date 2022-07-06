@@ -5,6 +5,7 @@ const bookRoutes = Router();
 import { Book } from "../schemas/book.model";
 
 import multer from 'multer';
+import {Author} from "../schemas/author.model";
 
 const upload = multer();
 
@@ -22,11 +23,11 @@ bookRoutes.post('/create', upload.none(), async (req, res) => {
 
     try {
 
-        // const authorNew = new Author({
-        //
-        //     name: req.body.author
-        //
-        // })
+        const authorNew = new Author({
+
+            name: req.body.author
+
+        })
 
         const bookNew = new Book({
 
@@ -34,13 +35,17 @@ bookRoutes.post('/create', upload.none(), async (req, res) => {
 
             description: req.body.description,
 
-            author: req.body.author,
+            author: authorNew,
 
         });
 
         bookNew.keywords.push({keyword: req.body.keyword});
 
-        const book = await bookNew.save();
+        const p1 = authorNew.save();
+
+        const p2 = bookNew.save();
+
+        let [author, book] = await Promise.all([p1, p2]);
 
         if (book) {
 
@@ -98,8 +103,12 @@ bookRoutes.get('/list', async (req, res) => {
 
     try {
 
-        const books = await Book.find();
-        console.log(books[1].keywords[0])
+        const books = await Book.find().populate({
+
+            path: "author", select: "name"
+
+        });
+        console.log(books)
 
         res.render("listBook", { books: books });
 

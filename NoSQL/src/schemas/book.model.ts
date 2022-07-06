@@ -6,7 +6,7 @@ interface IBook {
 
     description: string;
 
-    author: string;
+    author: any;
 
     keywords: object[];
 
@@ -24,7 +24,7 @@ const bookSchema = new Schema<IBook>({
 
     description: String,
 
-    author: String,
+    author: { type:Schema.Types.ObjectId, ref: "Author" },
 
     keywords: [keywordsSchema],
 

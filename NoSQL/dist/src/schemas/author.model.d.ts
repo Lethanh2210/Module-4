@@ -22,11 +22,8 @@
 /// <reference types="mongoose/types/validation" />
 /// <reference types="mongoose" />
 /// <reference types="mongoose/types/inferschematype" />
-interface IBook {
-    title: string;
-    description: string;
-    author: any;
-    keywords: object[];
+interface IAuthor {
+    name: string;
 }
-declare const Book: import("mongoose").Model<IBook, {}, {}, {}, any>;
-export { Book };
+declare const Author: import("mongoose").Model<IAuthor, {}, {}, {}, any>;
+export { Author };

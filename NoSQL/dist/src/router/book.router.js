@@ -7,19 +7,25 @@ const express_1 = require("express");
 const bookRoutes = (0, express_1.Router)();
 const book_model_1 = require("../schemas/book.model");
 const multer_1 = __importDefault(require("multer"));
+const author_model_1 = require("../schemas/author.model");
 const upload = (0, multer_1.default)();
 bookRoutes.get('/create', (req, res) => {
     res.render("createBook");
 });
 bookRoutes.post('/create', upload.none(), async (req, res) => {
     try {
+        const authorNew = new author_model_1.Author({
+            name: req.body.author
+        });
         const bookNew = new book_model_1.Book({
             title: req.body.title,
             description: req.body.description,
-            author: req.body.author,
+            author: authorNew,
         });
         bookNew.keywords.push({ keyword: req.body.keyword });
-        const book = await bookNew.save();
+        const p1 = authorNew.save();
+        const p2 = bookNew.save();
+        let [author, book] = await Promise.all([p1, p2]);
         if (book) {
             res.render("success");
         }
@@ -51,8 +57,10 @@ bookRoutes.post('/update', upload.none(), async (req, res) => {
 });
 bookRoutes.get('/list', async (req, res) => {
     try {
-        const books = await book_model_1.Book.find();
-        console.log(books[1].keywords[0]);
+        const books = await book_model_1.Book.find().populate({
+            path: "author", select: "name"
+        });
+        console.log(books);
         res.render("listBook", { books: books });
     }
     catch (_a) {
