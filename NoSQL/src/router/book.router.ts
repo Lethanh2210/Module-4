@@ -102,13 +102,18 @@ bookRoutes.post('/update', upload.none(), async (req, res) => {
 bookRoutes.get('/list', async (req, res) => {
 
     try {
-
-        const books = await Book.find().populate({
-
-            path: "author", select: "name"
-
+        let query = {};
+        if (req.query.keyword && req.query.keyword !== "") {
+            let keywordFind = req.query.keyword || "";
+            query = {
+                "keywords.keyword": {
+                    $regex: keywordFind
+                }
+            }
+        }
+        const books = await Book.find(query).populate({
+            path: "author", select: `name`
         });
-        console.log(books)
 
         res.render("listBook", { books: books });
 
@@ -117,7 +122,6 @@ bookRoutes.get('/list', async (req, res) => {
         res.render("error");
 
     }
-
 });
 
 
