@@ -7,14 +7,72 @@ export class BookController{
     }
 
     async showListBook(req,res){
-        const books = await Book.find().populate({path :"publisher",select: "name"}).populate({path :"author",select: "name"});
+        try {
 
+            let query = {};
 
-        if(books){
+            if (req.query.keyword && req.query.keyword !== "") {
+
+                let keywordFind = req.query.keyword || "";
+
+                query = {
+
+                    "keywords.keyword": {
+
+                        $regex: keywordFind
+
+                    }
+
+                }
+
+            }
+
+            if (req.query.publisher && req.query.publisher !== "") {
+
+                let authorFind = req.query.publisher || "";
+
+                let publisher = await Publisher.findOne({name: { $regex: authorFind}})
+
+                query = {
+
+                    ...query,
+
+                    publisher: publisher
+
+                }
+
+            }
+
+            // if (req.query.author && req.query.author !== "") {
+            //
+            //     let authorFind = req.query.author || "";
+            //
+            //     let author = await Author.findOne({name: { $regex: authorFind}})
+            //
+            //     query = {
+            //
+            //         ...query,
+            //
+            //         author: author
+            //
+            //     }
+            //
+            // }
+
+            const books = await Book.find(query).populate({
+
+                path: "publisher", select: "name"
+
+            }).populate({path :"author",select: "name"});
 
             res.render("listBook", { books: books });
-        }else{
-            res.send(404);
+
+        } catch {
+
+            res.render("error");
+
         }
+
     }
+
 }
