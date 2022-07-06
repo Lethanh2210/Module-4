@@ -22,7 +22,23 @@ bookRoutes.post('/create', upload.none(), async (req, res) => {
 
     try {
 
-        const bookNew = new Book(req.body);
+        // const authorNew = new Author({
+        //
+        //     name: req.body.author
+        //
+        // })
+
+        const bookNew = new Book({
+
+            title: req.body.title,
+
+            description: req.body.description,
+
+            author: req.body.author,
+
+        });
+
+        bookNew.keywords.push({keyword: req.body.keyword});
 
         const book = await bookNew.save();
 
@@ -83,6 +99,7 @@ bookRoutes.get('/list', async (req, res) => {
     try {
 
         const books = await Book.find();
+        console.log(books[1].keywords[0])
 
         res.render("listBook", { books: books });
 

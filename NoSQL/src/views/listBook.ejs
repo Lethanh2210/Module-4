@@ -48,9 +48,13 @@
 
         };
 
+
+
     </script>
 
 </head>
+
+
 
 <body>
 
@@ -76,6 +80,12 @@
 
     </p>
 
+    <p>
+
+        Keyword: <%= book.keywords[0].keyword %>
+
+    </p>
+
     <button onclick="update('<%= book.id %>')">Update</button>
 
     <button onclick="deleteBook('<%= book.id %>')">Delete</button>
@@ -85,5 +95,7 @@
 <% } %>
 
 </body>
+
+
 
 </html>

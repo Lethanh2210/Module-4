@@ -8,7 +8,15 @@ interface IBook {
 
     author: string;
 
+    keywords: object[];
+
 }
+
+const keywordsSchema = new Schema({
+
+    keyword: String
+
+})
 
 const bookSchema = new Schema<IBook>({
 
@@ -17,6 +25,8 @@ const bookSchema = new Schema<IBook>({
     description: String,
 
     author: String,
+
+    keywords: [keywordsSchema],
 
 })
 

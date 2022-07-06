@@ -13,7 +13,12 @@ bookRoutes.get('/create', (req, res) => {
 });
 bookRoutes.post('/create', upload.none(), async (req, res) => {
     try {
-        const bookNew = new book_model_1.Book(req.body);
+        const bookNew = new book_model_1.Book({
+            title: req.body.title,
+            description: req.body.description,
+            author: req.body.author,
+        });
+        bookNew.keywords.push({ keyword: req.body.keyword });
         const book = await bookNew.save();
         if (book) {
             res.render("success");
@@ -47,6 +52,7 @@ bookRoutes.post('/update', upload.none(), async (req, res) => {
 bookRoutes.get('/list', async (req, res) => {
     try {
         const books = await book_model_1.Book.find();
+        console.log(books[1].keywords[0]);
         res.render("listBook", { books: books });
     }
     catch (_a) {
