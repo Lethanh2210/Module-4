@@ -26,6 +26,26 @@ router.get("/login", (req, res) => {
 
 });
 
+router.get('/login/google', passport.authenticate('google', {scope: ['profile', 'email']}));
+
+
+
+// Retrieve user data using the access token received
+
+router.get(
+
+    "/google/callback",
+
+    passport.authenticate('google'),
+
+    (req, res) => {
+
+        res.redirect('http://localhost:3000/book/list')
+
+    }
+
+);
+
 
 
 router.post('/login', upload.none(), (req, res, next) => {
@@ -62,7 +82,9 @@ router.get("/logout", (req, res, next) => {
         if (err) { return next(err); }
         res.redirect('/auth/login');
     });
-})
+});
+
+
 
 
 

@@ -8,6 +8,15 @@ interface IUser {
 
     password: string;
 
+    google: {
+
+        id: {
+
+            type: string,
+
+        }
+    }
+
 }
 
 
@@ -16,8 +25,18 @@ const userSchema = new Schema<IUser>({
 
     username: String,
 
-    password: String
+    password: String,
 
+    google: {
+
+        id: {
+
+            type: String,
+
+        },
+
+
+    }
 })
 
 
