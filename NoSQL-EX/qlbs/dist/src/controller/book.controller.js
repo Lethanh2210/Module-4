@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BookController = void 0;
 const book_model_1 = require("../schemas/book.model");
+const author_model_1 = require("../schemas/author.model");
 const publisher_model_1 = require("../schemas/publisher.model");
 class BookController {
     constructor() {
@@ -22,9 +23,16 @@ class BookController {
                 let publisher = await publisher_model_1.Publisher.findOne({ name: { $regex: authorFind } });
                 query = Object.assign(Object.assign({}, query), { publisher: publisher });
             }
+            if (req.query.author && req.query.author !== "") {
+                let authorFind = req.query.author || "";
+                console.log(authorFind);
+                let author = await author_model_1.Author.findOne({ name: { $regex: authorFind } });
+                query = Object.assign(Object.assign({}, query), { author: author });
+            }
             const books = await book_model_1.Book.find(query).populate({
                 path: "publisher", select: "name"
             }).populate({ path: "author", select: "name" });
+            console.log(books);
             res.render("listBook", { books: books });
         }
         catch (_a) {

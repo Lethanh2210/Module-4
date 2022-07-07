@@ -42,28 +42,31 @@ export class BookController{
                 }
 
             }
+            if (req.query.author && req.query.author !== "") {
 
-            // if (req.query.author && req.query.author !== "") {
-            //
-            //     let authorFind = req.query.author || "";
-            //
-            //     let author = await Author.findOne({name: { $regex: authorFind}})
-            //
-            //     query = {
-            //
-            //         ...query,
-            //
-            //         author: author
-            //
-            //     }
-            //
-            // }
+                let authorFind = req.query.author || "";
+
+                console.log(authorFind)
+
+                let author = await Author.findOne({name: { $regex: authorFind}})
+
+                query = {
+
+                    ...query,
+
+                    author: author
+
+                }
+
+            }
 
             const books = await Book.find(query).populate({
 
                 path: "publisher", select: "name"
 
             }).populate({path :"author",select: "name"});
+
+            console.log(books);
 
             res.render("listBook", { books: books });
 
