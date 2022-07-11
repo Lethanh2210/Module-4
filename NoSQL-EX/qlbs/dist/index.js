@@ -7,6 +7,8 @@ const express_1 = __importDefault(require("express"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const book_router_1 = __importDefault(require("./src/router/book.router"));
+const winston_1 = require("./src/logger/winston");
+const errorToSlack = require('express-error-slack');
 const PORT = 3000;
 const app = (0, express_1.default)();
 app.use(body_parser_1.default.json());
@@ -18,6 +20,10 @@ mongoose_1.default.connect(DB_URL)
     .then(() => console.log('DB Connected!'))
     .catch(error => console.log('DB connection error:', error.message));
 app.use('/book', book_router_1.default);
+function errorMiddleware(err, req, res, next) {
+    winston_1.logger.error(err);
+}
+app.use(errorMiddleware);
 app.listen(PORT, () => {
     console.log("App running on port: " + PORT);
 });

@@ -32,7 +32,6 @@ class BookController {
             const books = await book_model_1.Book.find(query).populate({
                 path: "publisher", select: "name"
             }).populate({ path: "author", select: "name" });
-            console.log(books);
             res.render("listBook", { books: books });
         }
         catch (_a) {

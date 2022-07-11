@@ -6,19 +6,21 @@ const publisher_model_1 = require("../schemas/publisher.model");
 const book_model_1 = require("../schemas/book.model");
 const bookRoutes = (0, express_1.Router)();
 const book_controller_1 = require("../controller/book.controller");
-bookRoutes.get('/list', (req, res) => {
+bookRoutes.get('/list', (req, res, next) => {
     let bookContr = new book_controller_1.BookController();
-    bookContr.showListBook(req, res).then();
+    bookContr.showListBook(req, res);
+    throw new Error("fuck");
 });
 bookRoutes.get('/add', (req, res) => {
     res.render('createBook');
 });
-bookRoutes.post('/add', async (req, res) => {
-    console.log(req.body);
+bookRoutes.post('/add', async (req, res, next) => {
     let author = new author_model_1.Author({
         name: req.body.author
     });
-    await author.save();
+    await author.save().catch((err) => {
+        next(err);
+    });
     let publisher = new publisher_model_1.Publisher({
         name: req.body.publisher
     });

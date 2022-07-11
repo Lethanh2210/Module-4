@@ -48,6 +48,8 @@
 
     "express": "^4.18.1",
 
+    "express-error-slack": "^2.0.0",
+
     "mongodb": "^4.7.0",
 
     "mongoose": "^6.4.2",
@@ -60,7 +62,9 @@
 
     "typeorm": "^0.3.6",
 
-    "validator": "^13.7.0"
+    "validator": "^13.7.0",
+
+    "winston": "^3.8.1"
 
   }
 

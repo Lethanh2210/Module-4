@@ -6,6 +6,11 @@ import mongoose from "mongoose";
 
 import bookRoutes from "./src/router/book.router";
 
+import {logger} from "./src/logger/winston";
+
+const errorToSlack = require('express-error-slack');
+
+
 
 const PORT = 3000;
 
@@ -28,6 +33,16 @@ mongoose.connect(DB_URL)
 
 
 app.use('/book', bookRoutes);
+
+function errorMiddleware(err,req,res,next){
+    logger.error(err)
+}
+
+app.use(errorMiddleware);
+
+
+
+
 
 
 

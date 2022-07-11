@@ -66,9 +66,7 @@ export class BookController{
 
             }).populate({path :"author",select: "name"});
 
-            console.log(books);
-
-            res.render("listBook", { books: books });
+            res.render("listBook", {books: books});
 
         } catch {
 

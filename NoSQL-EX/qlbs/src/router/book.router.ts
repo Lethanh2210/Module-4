@@ -9,30 +9,36 @@ const bookRoutes = Router();
 import {BookController} from "../controller/book.controller";
 
 
-bookRoutes.get('/list', (req, res) => {
-    let bookContr = new BookController();
-    bookContr.showListBook(req, res).then();
+bookRoutes.get('/list', (req, res,next) => {
+
+        let bookContr = new BookController();
+        bookContr.showListBook(req, res);
+        throw new Error("fuck");
+
 });
 bookRoutes.get('/add', (req, res) => {
-    res.render('createBook')
+    res.render('createBook');
 })
-bookRoutes.post('/add', async(req, res) => {
-    console.log(req.body)
+bookRoutes.post('/add', async(req, res,next) => {
     let author = new Author({
         name: req.body.author
     })
-    await author.save();
+    await author.save().catch((err) => {
+        next(err);
+    })
 
     let publisher = new Publisher({
         name: req.body.publisher
     });
     await publisher.save()
+
     let book = new Book({
         title: req.body.title,
         name: req.body.name,
         author: author._id,
         publisher: publisher._id
     })
+
     book.keywords.push({keyword: req.body.keyword});
     await book.save()
 

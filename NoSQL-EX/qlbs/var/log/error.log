@@ -1,0 +1,30 @@
+[2022-07-11 14:00:43] [[31merror[39m] TypeError: C:\Users\ASUS\WebstormProjects\Module-4\NoSQL-EX\qlbs\src\views\listBook.ejs:137
+    135|                 </td>
+    136|                 <td>
+ >> 137|                     <%= (book.publisher.name) ? book.publisher.name : "Chua phan tich" %>
+    138|                 </td>
+    139|                 <td>
+    140|                     <button onclick="update('<%= book.id %>')">Update</button>
+
+Cannot read properties of undefined (reading 'name')
+    at eval ("C:\\Users\\ASUS\\WebstormProjects\\Module-4\\NoSQL-EX\\qlbs\\src\\views\\listBook.ejs":33:42)
+    at Array.forEach (<anonymous>)
+    at eval ("C:\\Users\\ASUS\\WebstormProjects\\Module-4\\NoSQL-EX\\qlbs\\src\\views\\listBook.ejs":15:14)
+    at listBook (C:\Users\ASUS\WebstormProjects\Module-4\NoSQL-EX\qlbs\node_modules\ejs\lib\ejs.js:703:17)
+    at tryHandleCache (C:\Users\ASUS\WebstormProjects\Module-4\NoSQL-EX\qlbs\node_modules\ejs\lib\ejs.js:274:36)
+    at View.exports.renderFile [as engine] (C:\Users\ASUS\WebstormProjects\Module-4\NoSQL-EX\qlbs\node_modules\ejs\lib\ejs.js:491:10)
+    at View.render (C:\Users\ASUS\WebstormProjects\Module-4\NoSQL-EX\qlbs\node_modules\express\lib\view.js:135:8)
+    at tryRender (C:\Users\ASUS\WebstormProjects\Module-4\NoSQL-EX\qlbs\node_modules\express\lib\application.js:657:10)
+    at Function.render (C:\Users\ASUS\WebstormProjects\Module-4\NoSQL-EX\qlbs\node_modules\express\lib\application.js:609:3)
+    at ServerResponse.render (C:\Users\ASUS\WebstormProjects\Module-4\NoSQL-EX\qlbs\node_modules\express\lib\response.js:1039:7)
+[2022-07-11 14:54:57] [[31merror[39m] Error: fuck
+    at C:\Users\ASUS\WebstormProjects\Module-4\NoSQL-EX\qlbs\dist\src\router\book.router.js:12:11
+    at Layer.handle [as handle_request] (C:\Users\ASUS\WebstormProjects\Module-4\NoSQL-EX\qlbs\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\ASUS\WebstormProjects\Module-4\NoSQL-EX\qlbs\node_modules\express\lib\router\route.js:144:13)
+    at Route.dispatch (C:\Users\ASUS\WebstormProjects\Module-4\NoSQL-EX\qlbs\node_modules\express\lib\router\route.js:114:3)
+    at Layer.handle [as handle_request] (C:\Users\ASUS\WebstormProjects\Module-4\NoSQL-EX\qlbs\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\ASUS\WebstormProjects\Module-4\NoSQL-EX\qlbs\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Users\ASUS\WebstormProjects\Module-4\NoSQL-EX\qlbs\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\ASUS\WebstormProjects\Module-4\NoSQL-EX\qlbs\node_modules\express\lib\router\index.js:280:10)
+    at Function.handle (C:\Users\ASUS\WebstormProjects\Module-4\NoSQL-EX\qlbs\node_modules\express\lib\router\index.js:175:3)
+    at router (C:\Users\ASUS\WebstormProjects\Module-4\NoSQL-EX\qlbs\node_modules\express\lib\router\index.js:47:12)
