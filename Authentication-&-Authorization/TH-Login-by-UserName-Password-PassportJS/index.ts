@@ -46,6 +46,7 @@ app.use(session({
 
 
 
+
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
@@ -60,9 +61,19 @@ app.use('/book', auth.authCheck,bookRoutes);
 app.use("/auth", authRoutes);
 
 
+app.use((req,res,next)=>{
+    res.status(400).render('error');
+})
+
+
+
+
+
 
 app.listen(PORT, () => {
 
     console.log("App running on port: " + PORT)
 
 })
+
+export default app;

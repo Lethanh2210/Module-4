@@ -34,16 +34,18 @@ mongoose.connect(DB_URL)
 
 app.use('/book', bookRoutes);
 
-function errorMiddleware(err,req,res,next){
-    logger.error(err)
-}
+// function errorMiddleware(err,req,res,next){
+//     logger.error(err)
+// }
+//
+// app.use(errorMiddleware);
 
-app.use(errorMiddleware);
+app.get('/error', function (req, res, next) {
+    const err = new Error('Internal Server Error')
+    next(err)
+})
 
-
-
-
-
+app.use(errorToSlack({ webhookUri: 'https://hooks.slack.com/services/xoxe.xoxp-1-Mi0yLTM3ODQzNDIwNTI5MDAtMzc4MTg2NjcyNTY4My0zNzk0NTg3NTM1MDI1LTM4MDU2OTY2MTM3MTItZmE3NGIwOWE5YjA3OTc2YTJjMGVkMzczYjkzOGZiYTdlNmUxMTRiN2NiZDU3ZTIyZjhkNDNhNzgwMWY4NWVjMA' }))
 
 
 app.listen(PORT, () => {

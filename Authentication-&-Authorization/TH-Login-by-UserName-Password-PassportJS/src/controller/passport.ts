@@ -27,7 +27,6 @@ passport.deserializeUser(function (user, done) {
 passport.use('local', new LocalStrategy(async (username, password, done) => {
 
     const user = await UserModel.findOne({ username: username });
-    console.log(user)
     if (!user) {
 
         return done(null, false);
@@ -64,7 +63,6 @@ passport.use(new GoogleStrategy({
 
         try {
 
-            console.log(profile, 'profile')
 
             let existingUser = await UserModel.findOne({ 'google.id': profile.id });
 
@@ -77,8 +75,6 @@ passport.use(new GoogleStrategy({
             }
 
             // if user does not exist create a new user
-
-            console.log('Creating new user...');
 
             const newUser = new UserModel({
 
@@ -95,8 +91,6 @@ passport.use(new GoogleStrategy({
             });
 
             await newUser.save();
-
-            console.log(newUser, 'newUser')
 
             return done(null, newUser);
 

@@ -15,7 +15,6 @@ passport_1.default.deserializeUser(function (user, done) {
 });
 passport_1.default.use('local', new passport_local_1.default(async (username, password, done) => {
     const user = await user_model_1.UserModel.findOne({ username: username });
-    console.log(user);
     if (!user) {
         return done(null, false);
     }
@@ -35,12 +34,10 @@ passport_1.default.use(new passport_google_oauth20_1.default({
     passReqToCallback: true
 }, async (request, accessToken, refreshToken, profile, done) => {
     try {
-        console.log(profile, 'profile');
         let existingUser = await user_model_1.UserModel.findOne({ 'google.id': profile.id });
         if (existingUser) {
             return done(null, existingUser);
         }
-        console.log('Creating new user...');
         const newUser = new user_model_1.UserModel({
             google: {
                 id: profile.id,
@@ -49,7 +46,6 @@ passport_1.default.use(new passport_google_oauth20_1.default({
             password: null
         });
         await newUser.save();
-        console.log(newUser, 'newUser');
         return done(null, newUser);
     }
     catch (error) {

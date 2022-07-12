@@ -131,10 +131,10 @@
                     <%= book.author.name%>
                 </td>
                 <td>
-                    <%= book.keywords[0].keyword %>
+                    <%= (book.keywords || book.keywords[0].keyword !== '' ) ? book.keywords[0].keyword : "chua phan tich" %>
                 </td>
                 <td>
-                    <%= (book.publisher.name) ? book.publisher.name : "Chua phan tich" %>
+                    <%= (book.publisher) ? book.publisher.name : "Chua phan tich" %>
                 </td>
                 <td>
                     <button onclick="update('<%= book.id %>')">Update</button>

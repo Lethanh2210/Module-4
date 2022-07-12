@@ -32,7 +32,14 @@ app.use(passport_1.default.session());
 app.use(express_1.default.urlencoded({ extended: false }));
 app.use('/book', AuthMiddleWare_1.default.authCheck, book_router_1.default);
 app.use("/auth", auth_router_1.default);
+app.get('/', async (req, res) => {
+    await res.status(200).render('error');
+});
+app.use((req, res, next) => {
+    res.status(400).render('error');
+});
 app.listen(PORT, () => {
     console.log("App running on port: " + PORT);
 });
+exports.default = app;
 //# sourceMappingURL=index.js.map

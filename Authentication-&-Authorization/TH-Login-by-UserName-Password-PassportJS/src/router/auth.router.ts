@@ -6,15 +6,16 @@ import passport from "passport";
 
 import multer from 'multer';
 
-
-
 const upload = multer();
+
+import AuthContr from "../controller/auth.controller"
+
 
 // router.post("/login", passport.authenticate("local", {
 //     failureRedirect: "/auth/login",
 //     successRedirect: "/book/list"
 // }));
-
+const authCtrl =  new AuthContr();
 
 
 router.get("/login", (req, res) => {
@@ -49,31 +50,7 @@ router.get(
 
 
 router.post('/login', upload.none(), (req, res, next) => {
-
-    console.log(req.body)
-
-    passport.authenticate("local", (err, user) => {
-
-        if(err){
-
-            return next(err)
-
-        }
-
-        if(!user){
-
-            console.log(req.body)
-
-            return res.send("Wrong email or password")
-
-        }
-
-        req.login(user, () => {
-            res.redirect("/book/list")
-
-        })
-
-    })(req, res, next)
+   authCtrl.checkLogin(req,res,next);
 
 })
 

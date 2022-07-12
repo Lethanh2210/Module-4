@@ -7,7 +7,6 @@ const express_1 = __importDefault(require("express"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const book_router_1 = __importDefault(require("./src/router/book.router"));
-const winston_1 = require("./src/logger/winston");
 const errorToSlack = require('express-error-slack');
 const PORT = 3000;
 const app = (0, express_1.default)();
@@ -20,10 +19,11 @@ mongoose_1.default.connect(DB_URL)
     .then(() => console.log('DB Connected!'))
     .catch(error => console.log('DB connection error:', error.message));
 app.use('/book', book_router_1.default);
-function errorMiddleware(err, req, res, next) {
-    winston_1.logger.error(err);
-}
-app.use(errorMiddleware);
+app.get('/error', function (req, res, next) {
+    const err = new Error('Internal Server Error');
+    next(err);
+});
+app.use(errorToSlack({ webhookUri: 'https://hooks.slack.com/services/xoxe.xoxp-1-Mi0yLTM3ODQzNDIwNTI5MDAtMzc4MTg2NjcyNTY4My0zNzk0NTg3NTM1MDI1LTM4MDU2OTY2MTM3MTItZmE3NGIwOWE5YjA3OTc2YTJjMGVkMzczYjkzOGZiYTdlNmUxMTRiN2NiZDU3ZTIyZjhkNDNhNzgwMWY4NWVjMA' }));
 app.listen(PORT, () => {
     console.log("App running on port: " + PORT);
 });

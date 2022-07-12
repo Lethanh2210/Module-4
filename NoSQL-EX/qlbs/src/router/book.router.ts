@@ -8,12 +8,11 @@ const bookRoutes = Router();
 
 import {BookController} from "../controller/book.controller";
 
-
+let bookContr = new BookController();
 bookRoutes.get('/list', (req, res,next) => {
-
-        let bookContr = new BookController();
-        bookContr.showListBook(req, res);
-        throw new Error("fuck");
+        bookContr.showListBook(req, res).catch(err=>{
+            next(err)
+        });
 
 });
 bookRoutes.get('/add', (req, res) => {
